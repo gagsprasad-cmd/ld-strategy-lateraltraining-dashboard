@@ -1,0 +1,300 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.dash{padding:1.5rem 0;width:100%}
+.section-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-tertiary);margin:2rem 0 .75rem}
+.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:.5rem}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.875rem 1rem}
+.metric-val{font-size:26px;font-weight:500;color:var(--color-text-primary);line-height:1}
+.metric-lbl{font-size:12px;color:var(--color-text-secondary);margin-top:5px}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cat-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;position:relative;overflow:hidden}
+.cat-bar-bg{position:absolute;bottom:0;left:0;height:3px;width:100%;background:var(--color-border-tertiary)}
+.cat-bar{position:absolute;bottom:0;left:0;height:3px;border-radius:0 2px 2px 0}
+.cat-icon{font-size:18px;margin-bottom:8px;display:block}
+.cat-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.cat-count{font-size:22px;font-weight:500;line-height:1.1}
+.cat-sub{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;margin-right:4px;margin-top:6px}
+.b-high{background:#E1F5EE;color:#0F6E56}
+.b-std{background:#E6F1FB;color:#185FA5}
+.b-niche{background:#FAEEDA;color:#854F0B}
+.b-new{background:#FBEAF0;color:#993556}
+.chart-wrap{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.1rem 1.25rem;margin-bottom:10px}
+.chart-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.insight-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.875rem 1rem;margin-bottom:8px}
+.insight-head{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.insight-body{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem}
+.tag{font-size:11px;padding:3px 10px;border-radius:20px;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary)}
+.tag.lg{font-size:13px;padding:4px 12px;font-weight:500;color:var(--color-text-primary);border-color:var(--color-border-primary)}
+.tag.md{font-size:12px;padding:3px 11px}
+.hbar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.hbar-label{font-size:11px;color:var(--color-text-secondary);width:130px;flex-shrink:0;text-align:right}
+.hbar-track{flex:1;height:10px;background:var(--color-border-tertiary);border-radius:6px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:6px}
+.hbar-val{font-size:11px;font-weight:500;color:var(--color-text-primary);width:24px;text-align:right}
+.dept-table{width:100%;font-size:12px;border-collapse:collapse}
+.dept-table th{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);padding:4px 8px;text-align:left;border-bottom:0.5px solid var(--color-border-tertiary)}
+.dept-table td{padding:6px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.dept-table tr:last-child td{border-bottom:none}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.legend-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.legend-item{display:flex;align-items:center;font-size:11px;color:var(--color-text-secondary)}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1.5rem 0}
+.exec-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start}
+.exec-num{font-size:20px;font-weight:500;min-width:36px;line-height:1}
+.exec-text{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.exec-text strong{font-weight:500;color:var(--color-text-primary)}
+</style>
+
+<div class="dash">
+<h2 class="sr-only">L&D Training Request Dashboard — summary of 125 training requests across 9 categories and multiple departments</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="metric-val">125</div><div class="metric-lbl">Total requests logged</div></div>
+  <div class="metric"><div class="metric-val">9</div><div class="metric-lbl">Training categories</div></div>
+  <div class="metric"><div class="metric-val">18</div><div class="metric-lbl">Departments / PnLs</div></div>
+  <div class="metric"><div class="metric-val">27</div><div class="metric-lbl">Sessions delivered</div></div>
+</div>
+
+<p class="section-label">Category breakdown</p>
+<div class="cat-grid">
+  <div class="cat-card">
+    <i class="ti ti-message-circle cat-icon" style="color:#185FA5" aria-hidden="true"></i>
+    <div class="cat-name">Communication Skills</div>
+    <div class="cat-count" style="color:#185FA5">28</div>
+    <div class="cat-sub">Effective Comm · Email · Chat/Call etiquette · Empathetic listening</div>
+    <span class="badge b-high">Highest demand</span><span class="badge b-std">Standardizable</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:100%;background:#185FA5"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-brain cat-icon" style="color:#0F6E56" aria-hidden="true"></i>
+    <div class="cat-name">AI & Digital Tools</div>
+    <div class="cat-count" style="color:#0F6E56">24</div>
+    <div class="cat-sub">Gen AI basics · Prompting · AI for daily tasks · Agentic AI · Data analysis tools</div>
+    <span class="badge b-high">High demand</span><span class="badge b-std">Scalable programs</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:86%;background:#0F6E56"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-users cat-icon" style="color:#534AB7" aria-hidden="true"></i>
+    <div class="cat-name">Recruitment & Sourcing</div>
+    <div class="cat-count" style="color:#534AB7">22</div>
+    <div class="cat-sub">Boolean search · Screening · LinkedIn · Sourcing channels · Candidate engagement</div>
+    <span class="badge b-high">High demand</span><span class="badge b-std">Functional core</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:78%;background:#534AB7"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-shield cat-icon" style="color:#D85A30" aria-hidden="true"></i>
+    <div class="cat-name">Leadership & Management</div>
+    <div class="cat-count" style="color:#D85A30">18</div>
+    <div class="cat-sub">First-time manager · Coaching · Decision-making · Delegation · Accountability</div>
+    <span class="badge b-std">Standardizable</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:64%;background:#D85A30"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-rotate cat-icon" style="color:#BA7517" aria-hidden="true"></i>
+    <div class="cat-name">Collaboration & Teamwork</div>
+    <div class="cat-count" style="color:#BA7517">12</div>
+    <div class="cat-sub">Cross-functional collab · Conflict resolution · Inter-intra team collab</div>
+    <span class="badge b-std">Recurring theme</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:43%;background:#BA7517"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-trending-up cat-icon" style="color:#993556" aria-hidden="true"></i>
+    <div class="cat-name">Business & Sales Skills</div>
+    <div class="cat-count" style="color:#993556">10</div>
+    <div class="cat-sub">Business acumen · Negotiation · Buyer personas · Stakeholder management · Client handling</div>
+    <span class="badge b-niche">Growing need</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:36%;background:#993556"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-clock cat-icon" style="color:#3B6D11" aria-hidden="true"></i>
+    <div class="cat-name">Productivity & Mindset</div>
+    <div class="cat-count" style="color:#3B6D11">7</div>
+    <div class="cat-sub">Time & task management · Prioritization · Stress management · Growth mindset</div>
+    <span class="badge b-std">Bundleable</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:25%;background:#3B6D11"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-tool cat-icon" style="color:#888780" aria-hidden="true"></i>
+    <div class="cat-name">Technical / Tool Training</div>
+    <div class="cat-count" style="color:#888780">4</div>
+    <div class="cat-sub">Advanced Excel/PPT · AMS tool · HirePro platform · Data analysis tools</div>
+    <span class="badge b-niche">Niche / specific</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:14%;background:#888780"></div>
+  </div>
+  <div class="cat-card">
+    <i class="ti ti-bulb cat-icon" style="color:#5F5E5A" aria-hidden="true"></i>
+    <div class="cat-name">Unique / One-time</div>
+    <div class="cat-count" style="color:#5F5E5A">5*</div>
+    <div class="cat-sub">Storytelling · Improv for women · Psychological safety · Strategic risk-taking · AI for email</div>
+    <span class="badge b-new">One-time / niche</span>
+    <div class="cat-bar-bg"></div><div class="cat-bar" style="width:18%;background:#5F5E5A"></div>
+  </div>
+</div>
+<p style="font-size:10px;color:var(--color-text-tertiary);margin-top:6px">* Requests spanning multiple themes counted once in primary category; unique/niche requests pulled separately.</p>
+
+<p class="section-label">Most requested topics (consolidated)</p>
+<div class="chart-wrap">
+  <div class="hbar-row">
+    <span class="hbar-label">Effective Communication</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:100%;background:#378ADD"></div></div>
+    <span class="hbar-val">28</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">AI / Gen AI (all levels)</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:86%;background:#1D9E75"></div></div>
+    <span class="hbar-val">24</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">Boolean & Sourcing</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:71%;background:#7F77DD"></div></div>
+    <span class="hbar-val">20</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">Time & Task Management</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:64%;background:#378ADD"></div></div>
+    <span class="hbar-val">18</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">Cross-functional Collab</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:54%;background:#BA7517"></div></div>
+    <span class="hbar-val">15</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">Business Acumen</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:43%;background:#D4537E"></div></div>
+    <span class="hbar-val">12</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">Negotiation Skills</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:43%;background:#D85A30"></div></div>
+    <span class="hbar-val">12</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">Conflict Resolution</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:36%;background:#993556"></div></div>
+    <span class="hbar-val">10</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">First-time Manager</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:36%;background:#D85A30"></div></div>
+    <span class="hbar-val">10</span>
+  </div>
+  <div class="hbar-row">
+    <span class="hbar-label">Executive Presence</span>
+    <div class="hbar-track"><div class="hbar-fill" style="width:25%;background:#5DCAA5"></div></div>
+    <span class="hbar-val">7</span>
+  </div>
+</div>
+
+<div class="two-col">
+  <div>
+    <p class="section-label" style="margin-top:1rem">Training type split</p>
+    <div class="chart-wrap" style="padding:1rem 1.1rem">
+      <div style="position:relative;width:100%;height:200px"><canvas id="typeChart" role="img" aria-label="Donut chart showing training type split: Behavioral 52%, Digital 26%, Functional 22%">Behavioral 52%, Digital 26%, Functional 22%</canvas></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--color-text-secondary)">
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px"></span>Behavioral 52%</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1D9E75;margin-right:4px"></span>Digital 26%</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#7F77DD;margin-right:4px"></span>Functional 22%</span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="section-label" style="margin-top:1rem">Audience level demand</p>
+    <div class="chart-wrap" style="padding:1rem 1.1rem">
+      <div style="position:relative;width:100%;height:200px"><canvas id="levelChart" role="img" aria-label="Bar chart of audience level demand: LT/L1/L2 most requested, then L3/L4, then L5/L6/L7">LT/L1/L2: 58 requests, L3/L4: 45 requests, L5/L6/L7: 22 requests</canvas></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--color-text-secondary)">
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px"></span>LT / L1-L2 (frontline)</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1D9E75;margin-right:4px"></span>L3-L4 (mid)</span>
+        <span style=""><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#BA7517;margin-right:4px"></span>L5-L7 (senior)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="section-label">Department-wise highlights</p>
+<div class="chart-wrap">
+  <table class="dept-table">
+    <thead><tr><th>Department / PnL</th><th>Requests</th><th>Top need</th><th>Training type</th></tr></thead>
+    <tbody>
+      <tr><td>SW_A (Anita Patil)</td><td>30</td><td>Recruitment, Digital, Behavioral</td><td><span class="badge b-high" style="margin:0">Highest volume</span></td></tr>
+      <tr><td>GIC_Others_A (Shaam Mathews)</td><td>20</td><td>Comm., AI, Accountability, Leadership</td><td><span class="badge b-std" style="margin:0">Mixed</span></td></tr>
+      <tr><td>DI_Biz_A (Rama G)</td><td>8</td><td>AI suite, Leadership, Functional</td><td><span class="badge b-std" style="margin:0">Balanced</span></td></tr>
+      <tr><td>IT Infra_A (Abhinandan / Siva)</td><td>8</td><td>AI, Comm., Recruitment basics</td><td><span class="badge b-std" style="margin:0">Digital-heavy</span></td></tr>
+      <tr><td>Agreements + Lead Gen (Ankit Ahuja)</td><td>10</td><td>Behavioral suite + AI</td><td><span class="badge b-std" style="margin:0">Behavioral</span></td></tr>
+      <tr><td>GIC_B&D_B (Lakshmi Rajagopala)</td><td>13</td><td>Recruitment, Leadership, AI</td><td><span class="badge b-std" style="margin:0">Functional+</span></td></tr>
+      <tr><td>HP Field Sales (Abhishek Sarda)</td><td>3</td><td>Advanced AI, Buyer persona</td><td><span class="badge b-niche" style="margin:0">Niche</span></td></tr>
+      <tr><td>HR (Kavitha S)</td><td>5</td><td>Negotiation, Probing, Problem-solving</td><td><span class="badge b-niche" style="margin:0">Specialized</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="section-label">Unique / one-time requests (niche needs)</p>
+<div class="tag-cloud">
+  <span class="tag">AI for resume screening</span>
+  <span class="tag">AI for email communication</span>
+  <span class="tag">Agentic AI & workflows</span>
+  <span class="tag">Market reports via AI</span>
+  <span class="tag">Improv for women (IWD)</span>
+  <span class="tag">Psychological safety</span>
+  <span class="tag">Strategic risk-taking</span>
+  <span class="tag">Resilience & leadership well-being</span>
+  <span class="tag">Buyer persona decoding</span>
+  <span class="tag">AI for sourcing / JD fragmentation</span>
+  <span class="tag">Pipeline management</span>
+  <span class="tag">Comp structure (ESOP/RSU)</span>
+  <span class="tag">Careernet global expansion</span>
+</div>
+
+<p class="section-label">Opportunities for standardized programs</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem">
+  <div class="insight-box">
+    <div class="insight-head"><i class="ti ti-package" aria-hidden="true" style="font-size:14px;color:#185FA5"></i>Standardize now</div>
+    <div class="insight-body">• <strong>Comm. Essentials</strong> — universal need, all levels<br>• <strong>AI Literacy Suite</strong> (Basic → Advanced) — 4-module program<br>• <strong>Recruitment Fundamentals</strong> (Boolean, Screening, LinkedIn)<br>• <strong>Time & Productivity Bootcamp</strong> — bundleable</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-head"><i class="ti ti-building" aria-hidden="true" style="font-size:14px;color:#534AB7"></i>Build as learning journeys</div>
+    <div class="insight-body">• <strong>New Manager Track</strong> — FTM → Coaching → Decision-making → Executive Presence<br>• <strong>Senior Leadership Track</strong> — Accountability · Strategic thinking · Culture building<br>• <strong>Sales & Business Track</strong> — Business acumen · Negotiation · Client handling</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-head"><i class="ti ti-rotate" aria-hidden="true" style="font-size:14px;color:#D85A30"></i>Cross-team batching opportunity</div>
+    <div class="insight-body">• Same topics requested by 5+ PnLs → run common cohorts instead of one-offs<br>• Conflict Resolution, Collab, Negotiation, Business Acumen — all repeat across teams</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-head"><i class="ti ti-sparkles" aria-hidden="true" style="font-size:14px;color:#0F6E56"></i>Scale via digital / self-paced</div>
+    <div class="insight-body">• AI & Digital modules → ideal for async/e-learning<br>• Communication Essentials → convert to microlearning series<br>• Boolean Search → recorded + practice sandbox</div>
+  </div>
+</div>
+
+<p class="section-label">Executive insights</p>
+<div class="exec-card">
+  <div class="exec-num" style="color:#185FA5">01</div>
+  <div class="exec-text"><strong>Communication & AI top the demand chart.</strong> Together they account for ~42% of all requests and span every level — making them the highest-priority candidates for standardized, scalable programs.</div>
+</div>
+<div class="exec-card">
+  <div class="exec-num" style="color:#534AB7">02</div>
+  <div class="exec-text"><strong>Frontline staff (LT/L1/L2) drive volume.</strong> The highest number of training requests target junior levels, signaling a strong onboarding & foundational skills gap that can be addressed with structured induction programs.</div>
+</div>
+<div class="exec-card">
+  <div class="exec-num" style="color:#D85A30">03</div>
+  <div class="exec-text"><strong>Leadership pipeline needs attention.</strong> First-time manager transition, executive presence, coaching, and accountability appeared across 6+ teams — indicating a systemic mid-to-senior leadership readiness gap.</div>
+</div>
+<div class="exec-card">
+  <div class="exec-num" style="color:#0F6E56">04</div>
+  <div class="exec-text"><strong>SW_A & GIC_Others_A are the highest-volume requestors.</strong> With 30 and 20 requests respectively, they warrant dedicated L&D account management, structured quarterly planning, and pre-approved training calendars.</div>
+</div>
+<div class="exec-card">
+  <div class="exec-num" style="color:#BA7517">05</div>
+  <div class="exec-text"><strong>12+ duplicate or overlapping requests exist across PnLs.</strong> Batching cross-team cohorts for common themes could reduce L&D delivery effort by an estimated 30–40% without compromising coverage.</div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{labels:['Behavioral','Digital','Functional'],datasets:[{data:[52,26,22],backgroundColor:['#378ADD','#1D9E75','#7F77DD'],borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ' '+c.label+': '+c.parsed+'%'}}}}}});
+new Chart(document.getElementById('levelChart'),{type:'bar',data:{labels:['LT / L1-L2','L3 - L4','L5-L6-L7'],datasets:[{label:'Requests',data:[58,45,22],backgroundColor:['#378ADD','#1D9E75','#BA7517'],borderWidth:0,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'rgba(128,128,128,0.1)'},ticks:{font:{size:11}}},x:{grid:{display:false},ticks:{font:{size:11}}}}}});
+</script>

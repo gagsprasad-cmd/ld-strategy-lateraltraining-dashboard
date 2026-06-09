@@ -1,0 +1,411 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.dash{padding:1.25rem 0;width:100%}
+.tab-nav{display:flex;gap:6px;margin-bottom:1.25rem;border-bottom:0.5px solid var(--color-border-tertiary);padding-bottom:0}
+.tab-btn{font-size:12px;font-weight:500;padding:7px 14px;border:none;background:none;color:var(--color-text-secondary);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-0.5px}
+.tab-btn.active{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.section-lbl{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-tertiary);margin:1.5rem 0 .6rem}
+.metric-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:.5rem}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem .875rem}
+.metric-val{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1}
+.metric-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:4px;line-height:1.3}
+.pill{display:inline-block;font-size:10px;font-weight:500;padding:2px 9px;border-radius:20px}
+.p-green{background:#E1F5EE;color:#0F6E56}
+.p-amber{background:#FAEEDA;color:#854F0B}
+.p-red{background:#FCEBEB;color:#A32D2D}
+.p-blue{background:#E6F1FB;color:#185FA5}
+.p-gray{background:#F1EFE8;color:#5F5E5A}
+.p-purple{background:#EEEDFE;color:#534AB7}
+.matrix-wrap{overflow-x:auto;margin-bottom:10px}
+table.matrix{width:100%;border-collapse:collapse;font-size:11px}
+table.matrix th{font-size:9px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-tertiary);padding:5px 8px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left;background:var(--color-background-secondary)}
+table.matrix td{padding:7px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top}
+table.matrix tr:last-child td{border-bottom:none}
+table.matrix tr:hover td{background:var(--color-background-secondary)}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;flex-shrink:0}
+.sd-green{background:#1D9E75}.sd-amber{background:#EF9F27}.sd-red{background:#E24B4A}.sd-blue{background:#378ADD}.sd-purple{background:#7F77DD}
+.hbar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.hbar-label{font-size:11px;color:var(--color-text-secondary);width:160px;flex-shrink:0;text-align:right;line-height:1.3}
+.hbar-track{flex:1;height:10px;background:var(--color-border-tertiary);border-radius:6px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:6px}
+.hbar-val{font-size:11px;font-weight:500;color:var(--color-text-primary);width:18px;text-align:right}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;margin-bottom:8px}
+.card-head{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:12px;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary);margin:2px}
+.insight-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.insight-row:last-child{border-bottom:none}
+.ins-num{font-size:18px;font-weight:500;min-width:28px;line-height:1}
+.ins-body{font-size:12px;color:var(--color-text-secondary);line-height:1.55}
+.ins-body strong{font-weight:500;color:var(--color-text-primary)}
+.heat-grid{display:grid;grid-template-columns:140px repeat(8,1fr);gap:2px;font-size:10px;margin-bottom:4px}
+.heat-cell{padding:5px 3px;text-align:center;border-radius:3px;font-weight:500;font-size:10px}
+.heat-label{font-size:10px;color:var(--color-text-secondary);padding:5px 6px;display:flex;align-items:center;line-height:1.2}
+.heat-col-head{font-size:9px;color:var(--color-text-tertiary);text-align:center;padding:4px 2px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;line-height:1.2}
+.h0{background:var(--color-background-secondary);color:var(--color-text-tertiary)}
+.h1{background:#E1F5EE;color:#085041}
+.h2{background:#9FE1CB;color:#04342C}
+.h3{background:#1D9E75;color:#fff}
+.hna{background:var(--color-background-secondary);color:var(--color-text-tertiary);font-size:9px}
+.legend-strip{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.ls-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--color-text-secondary)}
+.ls-swatch{width:12px;height:12px;border-radius:2px}
+.gap-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.gap-item:last-child{border-bottom:none}
+.gap-icon{font-size:16px;margin-top:1px;flex-shrink:0}
+.gap-body{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.gap-body strong{font-weight:500;color:var(--color-text-primary)}
+</style>
+
+<div class="dash">
+<h2 class="sr-only">L&D Training Requests vs Delivery Analysis — mapping 125 requests to sessions delivered across FY25 and FY26</h2>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+  <button class="tab-btn" onclick="switchTab('mapping')">Request → Delivery Map</button>
+  <button class="tab-btn" onclick="switchTab('heatmap')">Coverage Heatmap</button>
+  <button class="tab-btn" onclick="switchTab('gaps')">Gap Analysis</button>
+  <button class="tab-btn" onclick="switchTab('trainers')">Trainer's Choice</button>
+  <button class="tab-btn" onclick="switchTab('exec')">Executive Summary</button>
+</div>
+
+<!-- OVERVIEW -->
+<div id="tab-overview" class="tab-panel active">
+  <div class="metric-row">
+    <div class="metric"><div class="metric-val">125</div><div class="metric-lbl">Training requests received</div></div>
+    <div class="metric"><div class="metric-val" style="color:#1D9E75">42</div><div class="metric-lbl">Unique topics delivered (FY25+26)</div></div>
+    <div class="metric"><div class="metric-val" style="color:#EF9F27">~55%</div><div class="metric-lbl">Request categories covered</div></div>
+    <div class="metric"><div class="metric-val" style="color:#E24B4A">~45%</div><div class="metric-lbl">Requested areas not yet addressed</div></div>
+    <div class="metric"><div class="metric-val" style="color:#7F77DD">8</div><div class="metric-lbl">Trainer's choice / non-requested sessions</div></div>
+  </div>
+
+  <p class="section-lbl">Delivery by training type (FY25 Oct–Dec + FY26 Jan–May)</p>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head"><i class="ti ti-calendar-stats" aria-hidden="true" style="font-size:16px;color:#185FA5"></i>FY25 (Oct – Dec 2025) — 15 sessions</div>
+      <div class="hbar-row"><span class="hbar-label">Behavioral</span><div class="hbar-track"><div class="hbar-fill" style="width:60%;background:#378ADD"></div></div><span class="hbar-val">9</span></div>
+      <div class="hbar-row"><span class="hbar-label">Digital / AI</span><div class="hbar-track"><div class="hbar-fill" style="width:33%;background:#1D9E75"></div></div><span class="hbar-val">5</span></div>
+      <div class="hbar-row"><span class="hbar-label">Functional</span><div class="hbar-track"><div class="hbar-fill" style="width:7%;background:#7F77DD"></div></div><span class="hbar-val">1</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><i class="ti ti-calendar-stats" aria-hidden="true" style="font-size:16px;color:#0F6E56"></i>FY26 (Jan – May 2026) — 27 sessions</div>
+      <div class="hbar-row"><span class="hbar-label">Behavioral</span><div class="hbar-track"><div class="hbar-fill" style="width:56%;background:#378ADD"></div></div><span class="hbar-val">15</span></div>
+      <div class="hbar-row"><span class="hbar-label">Digital / AI</span><div class="hbar-track"><div class="hbar-fill" style="width:26%;background:#1D9E75"></div></div><span class="hbar-val">7</span></div>
+      <div class="hbar-row"><span class="hbar-label">Functional</span><div class="hbar-track"><div class="hbar-fill" style="width:18%;background:#7F77DD"></div></div><span class="hbar-val">5</span></div>
+    </div>
+  </div>
+
+  <p class="section-lbl">Coverage status by category</p>
+  <div style="position:relative;width:100%;height:260px"><canvas id="covChart" role="img" aria-label="Bar chart comparing requested vs delivered sessions across 9 training categories">Communication 28 req 12 del; AI Digital 24 req 9 del; Recruitment 22 req 7 del; Leadership 18 req 5 del; Collaboration 12 req 6 del; Business Sales 10 req 3 del; Productivity 7 req 4 del; Technical Tools 4 req 1 del; Unique Niche 5 req 1 del</canvas></div>
+  <div style="display:flex;gap:16px;margin-top:10px;font-size:11px;color:var(--color-text-secondary);flex-wrap:wrap">
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;margin-right:4px"></span>Requested</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1D9E75;margin-right:4px"></span>Delivered</span>
+  </div>
+</div>
+
+<!-- MAPPING TABLE -->
+<div id="tab-mapping" class="tab-panel">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:1rem;line-height:1.5">Intelligent mapping of business requests to actual delivered sessions. Creative session titles decoded to their underlying business intent.</p>
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead><tr><th>Requested Topic / Theme</th><th>Delivered Session(s)</th><th>Trainer</th><th>Period</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Effective Communication Essentials</strong></td><td>Effective Communication Essentials (×3 batches)<br>Write It Right: Professional Email Skills<br>Etiquette Training: Email, Chat & Call<br>Strategic Conversation Frameworks<br>Active Listening: A Key to Effective Workplace Comm.<br>Business Communication (Chennai plan)</td><td>Gagan, Vani</td><td>Oct'25–May'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>AI for Daily Tasks / Basics of Gen AI</strong></td><td>Basics of Gen AI (Lead Gen team)<br>AI in Everyday Life (Agreement team)<br>Bonus: Gen AI for All<br>Applied Gen AI for Everyday Work<br>AI Basics 2026: From Awareness to Action<br>AI Demystified for Leaders</td><td>Vani</td><td>Nov'25–May'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Advanced Gen AI / Prompting</strong></td><td>Prompt Engineering for All<br>Gen AI (Advanced) — Chennai plan<br>Generative AI and LLMs</td><td>Vani</td><td>Dec'25–Mar'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Conflict Resolution</strong></td><td>Conflict Resolution & Management (Jan'26)<br>Conflict Resolution (Apr'26)</td><td>Vani, Gagan</td><td>Jan–Apr'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Cross-Functional Collaboration</strong></td><td>Collaboration with Inter and Intra Teams (×3 batches)<br>Social Styles in Action: Managing Collaboration<br>Team Collaboration (Chennai)</td><td>Pavithraa, Vani</td><td>Feb–Mar'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Negotiation Skills</strong></td><td>Master Negotiator (May'26)<br>Strategic Conversation Frameworks (May'26)<br>Advanced Art of Negotiation (HR request - TBD)</td><td>Gagan</td><td>May'26</td><td><span class="pill p-amber">~ Partial</span></td></tr>
+        <tr><td><strong>Boolean Search / Sourcing</strong></td><td>Going Beyond Keywords (×2 batches)<br>Effective Sourcing using Boolean<br>Naukri Keyword Optimization (Chennai)</td><td>Pavithraa</td><td>Jan–May'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Interview Coordination & Candidate Experience</strong></td><td>Interview Coordination & Candidate Engagement</td><td>Gagan & Nawaz</td><td>Dec'25</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Screening & Shortlisting Best Practices</strong></td><td>Going Beyond Keywords (partially addresses this)<br>Candidate Evaluation & Fitment</td><td>Pavithraa, Gagan</td><td>Dec'25–May'26</td><td><span class="pill p-amber">~ Partial</span></td></tr>
+        <tr><td><strong>LinkedIn / Sourcing Tools</strong></td><td>Recruiter's Guide to LinkedIn (×4 batches)<br>Advanced LinkedIn Training (Chennai)<br>Sourcing Channels Orientation</td><td>Pavithraa</td><td>Feb–Mar'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Transition to First-Time Manager</strong></td><td>Transition to First-Time Manager</td><td>Gagan</td><td>Feb'26</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Coaching for Performance</strong></td><td>Coaching for Performance & Delegation That Works</td><td>Vani</td><td>May'26</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Executive Presence</strong></td><td>Executive Presence (L&D internal — Apr'26)</td><td>Gagan</td><td>Apr'26</td><td><span class="pill p-amber">~ Internal only</span></td></tr>
+        <tr><td><strong>Foundations of Workplace Behavior</strong></td><td>Foundations of Workplace Behavior</td><td>Pavithraa</td><td>May'26</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Time & Task Management</strong></td><td>Prioritization & Decision Making at Work (partially)<br>Stress Management (partially)</td><td>Vani</td><td>Apr'26</td><td><span class="pill p-amber">~ Partial</span></td></tr>
+        <tr><td><strong>Storytelling</strong></td><td>Art of Storytelling — Tools to Inspire and Influence</td><td>Gagan</td><td>Oct'25</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Emotional Intelligence</strong></td><td>Emotional Intelligence (×2 batches)</td><td>Vani</td><td>Oct'25</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Client / Stakeholder Handling</strong></td><td>Beginner's Guide to Handling Clients<br>Client Escalations (×2)<br>Customer Engagement for KPMG<br>Influencing Without Authority (×2)<br>Stakeholder Handling & Professional Presence (TBD)</td><td>Nawaz, Vani, Gagan</td><td>Jan–Apr'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Candidate Engagement (Sourcing to POFU)</strong></td><td>POFU: Mastering Post Offer Follow Ups (×2 batches)</td><td>Nawaz</td><td>Feb'26</td><td><span class="pill p-amber">~ Partial (POFU only)</span></td></tr>
+        <tr><td><strong>Passive & Social Media Sourcing</strong></td><td>Passive & Social Media Sourcing (planned May'26)</td><td>TBD</td><td>May'26</td><td><span class="pill p-amber">~ Planned</span></td></tr>
+        <tr><td><strong>Listening with Empathy</strong></td><td>Beyond Hearing: Power of Empathetic Listening in HR<br>Active Listening (May'26)<br>Listening That Builds Trust (IWD)</td><td>Gagan, Nawaz</td><td>Jan–May'26</td><td><span class="pill p-green">✓ Fully covered</span></td></tr>
+        <tr><td><strong>Pipeline Management</strong></td><td>Pipeline Management – Planning | Feedback | Process | Result</td><td>Nawaz</td><td>Mar'26</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Decision-Making</strong></td><td>Prioritization & Decision Making at Work</td><td>Vani</td><td>Apr'26</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Mentoring / People Management</strong></td><td>Mentoring Junior Recruiters</td><td>Nawaz</td><td>Apr'26</td><td><span class="pill p-amber">~ Partial (junior focus only)</span></td></tr>
+        <tr><td><strong>Delegation</strong></td><td>Delegate to Elevate: Art of Delegation<br>Coaching for Performance & Delegation That Works</td><td>Gagan, Vani</td><td>Jan–May'26</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Buyer Persona / Sales Skills</strong></td><td>The Buyer Blueprint — Decode Buyers, Drive Better Sales</td><td>Gagan</td><td>Nov'25</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Accountability & Ownership</strong></td><td>Building a Culture of Accountability & Trust (request)<br><em>Not yet delivered as standalone session</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>Business Acumen</strong></td><td><em>No direct delivery found</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>Advanced Excel / PPT</strong></td><td><em>No delivery found</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>Candidate Evaluation & Fitment</strong></td><td>Candidate Evaluation & Fitment</td><td>Gagan</td><td>Dec'25</td><td><span class="pill p-green">✓ Covered</span></td></tr>
+        <tr><td><strong>Market & Industry Trends / Tech Terms</strong></td><td>Basic Tech Understanding (Chennai plan — not yet main calendar)</td><td>Vani</td><td>Planned</td><td><span class="pill p-amber">~ Partial / Planned</span></td></tr>
+        <tr><td><strong>Comp Structure (ESOP/RSU)</strong></td><td><em>Not delivered</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>Strategic Risk-Taking / Resilience</strong></td><td><em>Not delivered</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>The Art of Probing</strong></td><td>The Power of Questions: Strategic Probing for Leaders</td><td>Gagan</td><td>Mar'26</td><td><span class="pill p-green">✓ Covered (rebranded)</span></td></tr>
+        <tr><td><strong>Interviewing Workshop (HR)</strong></td><td><em>Not delivered</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>AMS Tool / HirePro Platform</strong></td><td>Disprz: Manager Dashboard & Enhanced Features (Dec'25)</td><td>Vani</td><td>Dec'25</td><td><span class="pill p-amber">~ Adjacent (Disprz, not AMS)</span></td></tr>
+        <tr><td><strong>Adaptability & Change Management</strong></td><td><em>Not delivered as standalone</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>Know Your Customer / Client</strong></td><td>Beginner's Guide to Handling Clients<br>Customer Engagement for KPMG</td><td>Nawaz, Vani</td><td>Jan–Feb'26</td><td><span class="pill p-amber">~ Partial</span></td></tr>
+        <tr><td><strong>Agentic AI / AI for Sourcing</strong></td><td><em>Not yet delivered</em></td><td>—</td><td>—</td><td><span class="pill p-red">✗ Not delivered</span></td></tr>
+        <tr><td><strong>POSH Training</strong></td><td>POSH Training — Managers & IC Members (4 batches)</td><td>Deepa Rafeeq</td><td>Oct'25</td><td><span class="pill p-green">✓ Mandatory compliance</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HEATMAP -->
+<div id="tab-heatmap" class="tab-panel">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.5">Coverage intensity by training category across months delivered. Darker = more sessions delivered in that category.</p>
+  <div class="legend-strip">
+    <span class="ls-item"><span class="ls-swatch" style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary)"></span>Not delivered</span>
+    <span class="ls-item"><span class="ls-swatch" style="background:#E1F5EE"></span>1 session</span>
+    <span class="ls-item"><span class="ls-swatch" style="background:#9FE1CB"></span>2 sessions</span>
+    <span class="ls-item"><span class="ls-swatch" style="background:#1D9E75"></span>3+ sessions</span>
+  </div>
+  <div class="heat-grid">
+    <div class="heat-label" style="font-weight:500;color:var(--color-text-tertiary);font-size:9px;text-transform:uppercase;letter-spacing:.05em"></div>
+    <div class="heat-col-head">Oct'25</div><div class="heat-col-head">Nov'25</div><div class="heat-col-head">Dec'25</div>
+    <div class="heat-col-head">Jan'26</div><div class="heat-col-head">Feb'26</div><div class="heat-col-head">Mar'26</div>
+    <div class="heat-col-head">Apr'26</div><div class="heat-col-head">May'26</div>
+
+    <div class="heat-label">Communication Skills</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h1">1</div><div class="heat-cell h2">2</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h3">3</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h2">2</div>
+
+    <div class="heat-label">AI & Digital</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h3">3</div><div class="heat-cell h2">2</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h1">1</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h3">3</div>
+
+    <div class="heat-label">Recruitment & Sourcing</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h2">2</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h3">3</div><div class="heat-cell h3">3</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h2">2</div>
+
+    <div class="heat-label">Leadership & Mgmt</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h2">2</div><div class="heat-cell h1">1</div><div class="heat-cell h1">1</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h1">1</div>
+
+    <div class="heat-label">Collaboration</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h2">2</div><div class="heat-cell h2">2</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+
+    <div class="heat-label">Business & Sales</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h2">2</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h1">1</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h1">1</div>
+
+    <div class="heat-label">Productivity & Mindset</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h1">1</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h1">1</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h2">2</div><div class="heat-cell h0">0</div>
+
+    <div class="heat-label">Technical / Tools</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h1">1</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div>
+
+    <div class="heat-label">Unique / Niche</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h1">1</div>
+    <div class="heat-cell h0">0</div><div class="heat-cell h0">0</div><div class="heat-cell h1">1</div>
+    <div class="heat-cell h1">1</div><div class="heat-cell h0">0</div>
+  </div>
+
+  <p class="section-lbl" style="margin-top:1.5rem">Recurring topics — delivered 3+ times (high standardization potential)</p>
+  <div class="three-col">
+    <div class="card">
+      <div class="card-head" style="font-size:12px"><span class="status-dot sd-green"></span>Effective Communication</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">6 deliveries across batches · Multiple trainers · All levels</div>
+      <div style="margin-top:6px"><span class="pill p-green">Standardize → make it a program</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px"><span class="status-dot sd-green"></span>AI / Gen AI Suite</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">7 deliveries (Basic → Advanced → Applied) · All levels</div>
+      <div style="margin-top:6px"><span class="pill p-green">Standardize → 3-level program</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px"><span class="status-dot sd-green"></span>LinkedIn / Sourcing</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">5 deliveries · Recruiter focus · L1–L3</div>
+      <div style="margin-top:6px"><span class="pill p-green">Standardize → recruiter toolkit</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px"><span class="status-dot sd-blue"></span>Collaboration</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">4 deliveries · Multiple batches · L1–L3</div>
+      <div style="margin-top:6px"><span class="pill p-blue">Convert → team effectiveness module</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px"><span class="status-dot sd-blue"></span>Client Handling</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">5 deliveries · Beginner to escalation · L1–L6</div>
+      <div style="margin-top:6px"><span class="pill p-blue">Convert → client engagement journey</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px"><span class="status-dot sd-amber"></span>Conflict Resolution</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">2 deliveries · L3–L5 · Two different trainers</div>
+      <div style="margin-top:6px"><span class="pill p-amber">Standardize content & make it recurring</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- GAP ANALYSIS -->
+<div id="tab-gaps" class="tab-panel">
+  <p class="section-lbl" style="margin-top:0">Unfulfilled requests — topics requested but never delivered</p>
+  <div class="card">
+    <table class="matrix">
+      <thead><tr><th>Requested Topic</th><th>Requested by (Teams)</th><th>Urgency signal</th><th>Recommendation</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Business Acumen</strong></td><td>Agreements, Lead Gen, GIC_Others, GIC_Pune, IT Infra</td><td><span class="pill p-red">High — 5+ teams</span></td><td>Schedule as cross-team cohort Q1 FY27</td></tr>
+        <tr><td><strong>Agentic AI / AI for Sourcing</strong></td><td>HP Field Sales, DI_Biz, GIC_Others_A</td><td><span class="pill p-red">High — emerging tech need</span></td><td>Build as advanced AI module; Vani to lead</td></tr>
+        <tr><td><strong>Adaptability & Change Management</strong></td><td>SW_A, Flexi Staffing</td><td><span class="pill p-amber">Medium</span></td><td>Bundle with Conflict Resolution track</td></tr>
+        <tr><td><strong>Accountability & Ownership</strong></td><td>GIC_Others_A, DI_Biz</td><td><span class="pill p-amber">Medium — mentioned by 3 teams</span></td><td>Develop as leadership accountability module</td></tr>
+        <tr><td><strong>Advanced Excel / PPT</strong></td><td>SW_A</td><td><span class="pill p-amber">Medium</span></td><td>Source SME trainer; consider self-paced</td></tr>
+        <tr><td><strong>Comp Structure (ESOP/RSU/Shares)</strong></td><td>SW_A</td><td><span class="pill p-gray">Low — niche</span></td><td>Partner with HR/Finance for SME-led session</td></tr>
+        <tr><td><strong>Interviewing Workshop (HRBP focus)</strong></td><td>HR (Kavitha S)</td><td><span class="pill p-amber">Medium</span></td><td>Schedule for HRBPs — Gagan to lead</td></tr>
+        <tr><td><strong>Strategic Risk-Taking / Resilience</strong></td><td>Flexi Staffing Chennai</td><td><span class="pill p-gray">Low</span></td><td>Consider self-paced resource or external program</td></tr>
+        <tr><td><strong>Developing Problem-Solving Mindset</strong></td><td>HR (Kavitha S)</td><td><span class="pill p-amber">Medium</span></td><td>Design as workshops; Gagan best fit</td></tr>
+        <tr><td><strong>Market & Industry Trends / Tech Terms</strong></td><td>SW_A</td><td><span class="pill p-amber">Medium</span></td><td>Assign domain SME; functional content heavy</td></tr>
+        <tr><td><strong>Careeernet Co. Overview (Global expansion)</strong></td><td>SW_A</td><td><span class="pill p-blue">Planned May'26</span></td><td>Pasu/Neelabh-led — already scheduled</td></tr>
+        <tr><td><strong>Team / People Management (Senior)</strong></td><td>SW_A (L5–L7)</td><td><span class="pill p-amber">Medium</span></td><td>Extend leadership track to senior tier</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="section-lbl">Partially addressed — needs deeper or broader coverage</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="gap-item" style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;flex-direction:column;align-items:flex-start;display:flex">
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px"><i class="ti ti-alert-triangle" style="font-size:13px;color:#EF9F27;margin-right:4px" aria-hidden="true"></i>Time & Task Management</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">Requested by 7+ teams for L1–L4. Only partially addressed within Prioritization & Decision-Making. Needs a dedicated standalone session.</div>
+    </div>
+    <div class="gap-item" style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;flex-direction:column;align-items:flex-start;display:flex">
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px"><i class="ti ti-alert-triangle" style="font-size:13px;color:#EF9F27;margin-right:4px" aria-hidden="true"></i>Executive Presence</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">Delivered only internally for the L&D team (Apr'26). Multiple teams (SW_A, GIC, Flexi) requested it for L5–L7. Needs a wider rollout.</div>
+    </div>
+    <div class="gap-item" style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;flex-direction:column;align-items:flex-start;display:flex">
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px"><i class="ti ti-alert-triangle" style="font-size:13px;color:#EF9F27;margin-right:4px" aria-hidden="true"></i>Negotiation Skills (L1–L3)</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">Master Negotiator covered L4–L6. Strategic Conversation Frameworks covered L1–L3 basics. A formal Negotiation module for junior levels is still needed.</div>
+    </div>
+    <div class="gap-item" style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;flex-direction:column;align-items:flex-start;display:flex">
+      <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px"><i class="ti ti-alert-triangle" style="font-size:13px;color:#EF9F27;margin-right:4px" aria-hidden="true"></i>Candidate Engagement — End to End</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">POFU covered the post-offer stage only. Full-cycle candidate engagement (sourcing to POFU with case studies) was not delivered.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TRAINER'S CHOICE -->
+<div id="tab-trainers" class="tab-panel">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.5">Sessions delivered that do not directly map to any business training request. These are capability-building, creative, compliance, or experimental initiatives driven by the L&D team.</p>
+  <table class="matrix">
+    <thead><tr><th>Session Title</th><th>Trainer</th><th>Period</th><th>Nature</th><th>Business value</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Unscripted & Unstoppable: Improv for Women</strong></td><td>Gagan</td><td>Mar'26 (IWD)</td><td><span class="pill p-purple">Cultural / DEI</span></td><td>Confidence, presence, creativity — IWD special</td></tr>
+      <tr><td><strong>Listening That Builds Trust (IWD)</strong></td><td>Vani</td><td>Mar'26 (IWD)</td><td><span class="pill p-purple">Cultural / DEI</span></td><td>Empathy-building; connects to communication theme</td></tr>
+      <tr><td><strong>The Science of Psychological Safety (IWD)</strong></td><td>Pavithraa</td><td>Mar'26 (IWD)</td><td><span class="pill p-purple">Cultural / DEI</span></td><td>Psychological safety; team trust and culture</td></tr>
+      <tr><td><strong>Reflective Art Workshop</strong></td><td>Pavithraa</td><td>Dec'25</td><td><span class="pill p-blue">Wellbeing / Experimental</span></td><td>Focus, creativity, stress relief via art</td></tr>
+      <tr><td><strong>POSH Training (4 batches — Managers & IC)</strong></td><td>Deepa Rafeeq</td><td>Oct'25</td><td><span class="pill p-gray">Compliance / Mandatory</span></td><td>Statutory compliance — not from business request</td></tr>
+      <tr><td><strong>Disprz Dashboard Demo (Manager features)</strong></td><td>Vani</td><td>Dec'25</td><td><span class="pill p-blue">Platform / Tool</span></td><td>LMS capability building; L&D operational</td></tr>
+      <tr><td><strong>The Face of the Workplace: Guest Experience</strong></td><td>Gagan</td><td>Mar–Apr'26</td><td><span class="pill p-gray">Function-specific / Ops</span></td><td>Facility & support team professionalism</td></tr>
+      <tr><td><strong>Executive Presence (L&D team internal)</strong></td><td>Gagan</td><td>Apr'26</td><td><span class="pill p-gray">Internal capability</span></td><td>Internal trainer upskilling</td></tr>
+    </tbody>
+  </table>
+  <div class="card" style="margin-top:10px;background:var(--color-background-secondary);border:none">
+    <div class="card-head" style="font-size:12px"><i class="ti ti-info-circle" aria-hidden="true" style="color:#185FA5;font-size:15px"></i>Observation</div>
+    <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6">Trainer's Choice sessions account for ~8 of 42 total deliveries (~19%). The IWD cluster (3 sessions) was purposefully themed and well-received. These sessions demonstrate L&D's initiative beyond reactive request-fulfillment, which is positive — but should be tracked separately from business-requested training to ensure core request backlog doesn't grow. <strong style="color:var(--color-text-primary)">Recommendation: cap Trainer's Choice at 15–20% of quarterly delivery.</strong></div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div id="tab-exec" class="tab-panel">
+  <div class="metric-row">
+    <div class="metric"><div class="metric-val" style="color:#1D9E75">22</div><div class="metric-lbl">Request themes fully delivered</div></div>
+    <div class="metric"><div class="metric-val" style="color:#EF9F27">8</div><div class="metric-lbl">Partially addressed</div></div>
+    <div class="metric"><div class="metric-val" style="color:#E24B4A">12</div><div class="metric-lbl">Not yet delivered</div></div>
+    <div class="metric"><div class="metric-val" style="color:#7F77DD">8</div><div class="metric-lbl">Trainer's choice sessions</div></div>
+    <div class="metric"><div class="metric-val" style="color:#185FA5">6</div><div class="metric-lbl">Topics ready to standardize</div></div>
+  </div>
+  <div class="card" style="margin-top:.5rem">
+    <div class="insight-row">
+      <div class="ins-num" style="color:#1D9E75">01</div>
+      <div class="ins-body"><strong>L&D is delivering well on high-frequency behavioral & digital requests.</strong> Communication, AI literacy, LinkedIn sourcing, collaboration, and conflict resolution — all top-requested — have been consistently addressed across FY25 and FY26. This is strong alignment with business demand.</div>
+    </div>
+    <div class="insight-row">
+      <div class="ins-num" style="color:#EF9F27">02</div>
+      <div class="ins-body"><strong>L&D is over-indexing on Communication and AI topics.</strong> These two categories account for nearly 40% of all delivery. While demand justifies it, it comes at the expense of under-served categories like Business Acumen, Accountability, and Advanced Recruitment skills which have multiple teams waiting.</div>
+    </div>
+    <div class="insight-row">
+      <div class="ins-num" style="color:#E24B4A">03</div>
+      <div class="ins-body"><strong>Business Acumen is the biggest unaddressed gap.</strong> Requested by 5+ PnLs (Agreements, Lead Gen, GIC Others, Pune, IT Infra) across both junior and mid levels, yet it has zero deliveries. This is the highest-priority gap to close in the next quarter.</div>
+    </div>
+    <div class="insight-row">
+      <div class="ins-num" style="color:#E24B4A">04</div>
+      <div class="ins-body"><strong>Agentic AI and advanced sourcing automation are emerging and unaddressed.</strong> HP Field Sales, DI_Biz, and GIC teams have asked for agentic AI and AI-for-sourcing sessions. These are forward-looking capability needs — the longer L&D waits, the larger the competency gap grows.</div>
+    </div>
+    <div class="insight-row">
+      <div class="ins-num" style="color:#534AB7">05</div>
+      <div class="ins-body"><strong>6 topics are ready to become standardized programs.</strong> Communication Essentials, the AI Literacy Suite, LinkedIn/Sourcing, Collaboration, Client Handling, and Conflict Resolution have each been delivered 3–7 times. Converting these into fixed quarterly programs with pre-built content and nomination systems will free up significant trainer effort.</div>
+    </div>
+    <div class="insight-row">
+      <div class="ins-num" style="color:#185FA5">06</div>
+      <div class="ins-body"><strong>Trainer's Choice sessions (19% of delivery) are valuable but need guardrails.</strong> The IWD cluster, Reflective Art Workshop, and Psychological Safety sessions are appreciated and show L&D initiative. However, a formal policy should cap these at 15–20% per quarter to protect bandwidth for pending business requests.</div>
+    </div>
+    <div class="insight-row" style="border:none">
+      <div class="ins-num" style="color:#BA7517">07</div>
+      <div class="ins-body"><strong>Executive Presence and Time Management remain partially served.</strong> Both are high-demand, multi-team requests. Executive Presence was only delivered internally to the L&D team; Time & Task Management has no dedicated session yet. A Q1 FY27 rollout plan for both is recommended.</div>
+    </div>
+  </div>
+  <p class="section-lbl">Recommended immediate actions</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="card">
+      <div class="card-head" style="font-size:12px;color:#E24B4A"><i class="ti ti-urgent" aria-hidden="true" style="font-size:14px"></i>Close in Q1 FY27 (High priority)</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.7">• Business Acumen — cross-team cohort<br>• Time & Task Management — standalone session<br>• Executive Presence — widen beyond L&D team<br>• Agentic AI / AI for Sourcing — new module</div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px;color:#1D9E75"><i class="ti ti-package" aria-hidden="true" style="font-size:14px"></i>Standardize now (Convert to programs)</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.7">• Communication Essentials → monthly open cohort<br>• AI Literacy Suite → 3-level self-paced + live hybrid<br>• Recruiter Toolkit → onboarding-linked program<br>• Client Handling Journey → L1 → L6 progression</div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px;color:#BA7517"><i class="ti ti-tools" aria-hidden="true" style="font-size:14px"></i>Source external / SME support</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.7">• Advanced Excel & PPT<br>• Comp Structure (ESOP / RSU)<br>• Market & Industry Tech Trends<br>• Interviewing Workshop for HRBPs</div>
+    </div>
+    <div class="card">
+      <div class="card-head" style="font-size:12px;color:#534AB7"><i class="ti ti-chart-bar" aria-hidden="true" style="font-size:14px"></i>Governance add-ons</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.7">• Cap Trainer's Choice at 15–20% per quarter<br>• Publish request backlog dashboard to PnL heads<br>• Quarterly review: requests vs. delivery closure rate<br>• Track requests by status: pending, in-progress, done</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function switchTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+new Chart(document.getElementById('covChart'),{
+  type:'bar',
+  data:{
+    labels:['Communication','AI & Digital','Recruitment','Leadership','Collaboration','Business/Sales','Productivity','Tech Tools','Unique/Niche'],
+    datasets:[
+      {label:'Requested',data:[28,24,22,18,12,10,7,4,5],backgroundColor:'#378ADD',borderRadius:3,borderWidth:0},
+      {label:'Delivered',data:[12,9,7,5,6,3,4,1,1],backgroundColor:'#1D9E75',borderRadius:3,borderWidth:0}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y}}},
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:10},maxRotation:30}},
+      y:{grid:{color:'rgba(128,128,128,0.1)'},ticks:{font:{size:11}},title:{display:true,text:'Sessions / Topics',font:{size:10}}}
+    }
+  }
+});
+</script>

@@ -1,0 +1,392 @@
+
+<h2 class="sr-only">Pending training topics with level focus — 19 topics still to be delivered, grouped by priority and audience level</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+.f-btn{font-size:12px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:none;color:var(--color-text-secondary);cursor:pointer;transition:background .15s}
+.f-btn.active,.f-btn:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.f-btn.active{border-color:var(--color-border-primary);font-weight:500}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem}
+.scard{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1rem}
+.scard-val{font-size:22px;font-weight:500;line-height:1}
+.scard-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:4px;line-height:1.3}
+.group-lbl{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-tertiary);margin:1.2rem 0 .5rem}
+.topic-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.875rem 1rem;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start}
+.topic-card.hidden{display:none}
+.pri-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.topic-main{flex:1;min-width:0}
+.topic-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px;line-height:1.3}
+.meta-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:500;padding:2px 8px;border-radius:12px}
+.pill-lvl-lt{background:#E1F5EE;color:#085041}
+.pill-lvl-mid{background:#E6F1FB;color:#0C447C}
+.pill-lvl-sr{background:#EEEDFE;color:#3C3489}
+.pill-lvl-all{background:#F1EFE8;color:#444441}
+.pill-type-B{background:#FAEEDA;color:#633806}
+.pill-type-F{background:#E1F5EE;color:#085041}
+.pill-type-D{background:#E6F1FB;color:#0C447C}
+.pill-pri-crit{background:#FCEBEB;color:#791F1F}
+.pill-pri-high{background:#FAEEDA;color:#633806}
+.pill-pri-med{background:#FFFDE6;color:#5C4600}
+.pill-pri-low{background:#F1EFE8;color:#444441}
+.req-info{font-size:11px;color:var(--color-text-secondary);margin-top:5px;line-height:1.4}
+.req-info strong{font-weight:500;color:var(--color-text-primary)}
+.pax{font-size:12px;font-weight:500;color:var(--color-text-secondary);min-width:36px;text-align:right;flex-shrink:0;padding-top:2px}
+.pax span{font-size:10px;font-weight:400;display:block;text-align:right;color:var(--color-text-tertiary)}
+</style>
+
+<div class="wrap">
+<div class="summary">
+  <div class="scard"><div class="scard-val" style="color:#E24B4A">19</div><div class="scard-lbl">Topics pending delivery</div></div>
+  <div class="scard"><div class="scard-val" style="color:#E24B4A">4</div><div class="scard-lbl">Critical priority</div></div>
+  <div class="scard"><div class="scard-val" style="color:#EF9F27">8</div><div class="scard-lbl">High priority</div></div>
+  <div class="scard"><div class="scard-val">185+</div><div class="scard-lbl">Participants waiting</div></div>
+</div>
+
+<div class="filters">
+  <span style="font-size:11px;color:var(--color-text-tertiary);padding:4px 4px 4px 0;align-self:center">Filter by:</span>
+  <button class="f-btn active" onclick="filterCards('all',this)">All (19)</button>
+  <button class="f-btn" onclick="filterCards('critical',this)">Critical</button>
+  <button class="f-btn" onclick="filterCards('high',this)">High</button>
+  <button class="f-btn" onclick="filterCards('medium',this)">Medium</button>
+  <button class="f-btn" onclick="filterCards('low',this)">Low</button>
+  <button class="f-btn" onclick="filterCards('lt-l2',this)">LT / L1–L2</button>
+  <button class="f-btn" onclick="filterCards('l3-l4',this)">L3–L4</button>
+  <button class="f-btn" onclick="filterCards('l5-l7',this)">L5–L7</button>
+</div>
+
+<div id="cards-container">
+
+<div class="group-lbl">Critical — must launch in 0–30 days</div>
+
+<div class="topic-card" data-pri="critical" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#E24B4A"></div>
+  <div class="topic-main">
+    <div class="topic-name">Business Acumen</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-crit">Critical</span>
+    </div>
+    <div class="req-info">Requested by <strong>5+ PnLs</strong> — Agreements, Lead Gen, GIC_Others_E, Geo_Pune, IT Infra. Cross-team cohort recommended.</div>
+  </div>
+  <div class="pax">35+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="critical" data-lvl="l3-l4 l5-l7">
+  <div class="pri-dot" style="background:#E24B4A"></div>
+  <div class="topic-main">
+    <div class="topic-name">Agentic AI & AI for sourcing / JD fragmentation</div>
+    <div class="meta-row">
+      <span class="pill pill-type-D">Digital</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L5–L7</span>
+      <span class="pill pill-pri-crit">Critical</span>
+    </div>
+    <div class="req-info">Requested by <strong>HP Field Sales, DI_Biz_A, GIC_Others_A</strong>. No module built yet — emerging capability gap.</div>
+  </div>
+  <div class="pax">20+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="critical" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#E24B4A"></div>
+  <div class="topic-main">
+    <div class="topic-name">Time & Task Management</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-crit">Critical</span>
+    </div>
+    <div class="req-info">Requested by <strong>7+ teams</strong> — Agreements, Lead Gen, Int'l Biz, IT2, IT Infra, GIC_B&D, Flexi, DI_Biz. Partially touched in Prioritisation session; standalone overdue.</div>
+  </div>
+  <div class="pax">40+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="critical" data-lvl="l5-l7">
+  <div class="pri-dot" style="background:#E24B4A"></div>
+  <div class="topic-main">
+    <div class="topic-name">Building a culture of accountability & trust</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L5–L7</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-crit">Critical</span>
+    </div>
+    <div class="req-info">Requested by <strong>DI_Biz_A (L5–L7), GIC_Others_A (L5–L6), GIC_B&D_B (L3–L4)</strong>. Multiple leadership teams pending — 0 sessions delivered.</div>
+  </div>
+  <div class="pax">18+<span>participants</span></div>
+</div>
+
+<div class="group-lbl">High — schedule in next 30–60 days</div>
+
+<div class="topic-card" data-pri="high" data-lvl="l5-l7">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Executive Presence</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L5–L7</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A, GIC_Others_A (L5–L6), Agreements (L3–L4), Flexi Staffing (L5–L7)</strong>. Delivered internally to L&D team only (Apr'26) — wider rollout needed.</div>
+  </div>
+  <div class="pax">20+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="high" data-lvl="l3-l4 l5-l7">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Coaching for Performance</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L5–L6</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>Agreements (L3–L4), GIC_Others_A (L5–L6), DI_Biz_A (L5–L7), Flexi_B (L6)</strong>. Only a combined session delivered (May'26); dedicated standalone still pending.</div>
+  </div>
+  <div class="pax">18+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="high" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Negotiation Skills (LT / L1–L3 gap)</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A (L1–L4), Agreements+Lead Gen (L1–L4), IT Infra (L3–L4), GIC_Others_A (L1–L2), HR (HRBP advanced)</strong>. Master Negotiator covered senior levels only.</div>
+  </div>
+  <div class="pax">40+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="high" data-lvl="l5-l7">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Storytelling</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L5–L7</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>DI_Biz_A (L5–L7), GIC_Others_A (L5–L6)</strong>. Art of Storytelling was delivered in Oct'25 — a fresh batch for these teams is pending.</div>
+  </div>
+  <div class="pax">12+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="high" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Passive & Social Media Sourcing</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A and GIC_B&D_B</strong>. Session was planned for May'26 but not confirmed as delivered in calendars.</div>
+  </div>
+  <div class="pax">20+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="high" data-lvl="lt-l2 l3-l4 l5-l7">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Team / People Management & Mentoring</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L5–L7</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A (all levels), Flexi_B (L6)</strong>. Mentoring Junior Recruiters (Apr'26) only partially addressed this — full people management coverage pending.</div>
+  </div>
+  <div class="pax">15+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="high" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Screening & Shortlisting Best Practices</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>IT Infra_A, GIC_Others_A, GIC_B&D_B</strong>. Only partially covered within Boolean/Sourcing sessions — a focused standalone is needed.</div>
+  </div>
+  <div class="pax">20+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="high" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#EF9F27"></div>
+  <div class="topic-main">
+    <div class="topic-name">Candidate Engagement — End to End (Sourcing to POFU)</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-pri-high">High</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A</strong> with case studies across candidate motivations. POFU delivered; pre-offer engagement stages still pending.</div>
+  </div>
+  <div class="pax">12+<span>participants</span></div>
+</div>
+
+<div class="group-lbl">Medium — plan for next quarter</div>
+
+<div class="topic-card" data-pri="medium" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#639922"></div>
+  <div class="topic-main">
+    <div class="topic-name">Advanced Technology Terms & Market Trends</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-med">Medium</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A</strong>. Needs domain SME; Basic Tech Understanding was planned for Chennai but not in main calendar.</div>
+  </div>
+  <div class="pax">27+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="medium" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#639922"></div>
+  <div class="topic-main">
+    <div class="topic-name">Advanced Excel & PPT</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-med">Medium</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A</strong>. Recommend self-paced module or external SME. ~18 participants at L1–L2, ~3 at L3–L4.</div>
+  </div>
+  <div class="pax">21+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="medium" data-lvl="lt-l2 l3-l4 l5-l7">
+  <div class="pri-dot" style="background:#639922"></div>
+  <div class="topic-main">
+    <div class="topic-name">Adaptability & Change Management</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L5–L7</span>
+      <span class="pill pill-pri-med">Medium</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A</strong>. Can be bundled with Conflict Resolution track. No standalone session delivered.</div>
+  </div>
+  <div class="pax">6+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="medium" data-lvl="l3-l4 l5-l7">
+  <div class="pri-dot" style="background:#639922"></div>
+  <div class="topic-main">
+    <div class="topic-name">Developing a Problem-Solving / Solution-driven Mindset</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-all"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> All levels</span>
+      <span class="pill pill-pri-med">Medium</span>
+    </div>
+    <div class="req-info">Requested by <strong>HR — Kavitha S</strong>. Design as an interactive workshop. No equivalent delivered yet.</div>
+  </div>
+  <div class="pax">All<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="medium" data-lvl="lt-l2 l3-l4 l5-l7">
+  <div class="pri-dot" style="background:#639922"></div>
+  <div class="topic-main">
+    <div class="topic-name">Interviewing Workshop</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> HRBPs / Leads</span>
+      <span class="pill pill-pri-med">Medium</span>
+    </div>
+    <div class="req-info">Requested by <strong>HR — Kavitha S</strong>. Specialized for HRBP audience and leads. Gagan identified as best fit to design and deliver.</div>
+  </div>
+  <div class="pax">~8<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="medium" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#639922"></div>
+  <div class="topic-main">
+    <div class="topic-name">AI for resume screening & AI for effective email communication</div>
+    <div class="meta-row">
+      <span class="pill pill-type-D">Digital</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-pri-med">Medium</span>
+    </div>
+    <div class="req-info">Requested by <strong>GIC_Others_A — Sudipta Naha</strong>. Very specific AI use-case sessions; can be bundled into applied AI module.</div>
+  </div>
+  <div class="pax">~10<span>participants</span></div>
+</div>
+
+<div class="group-lbl">Low / niche — source externally or SME-led</div>
+
+<div class="topic-card" data-pri="low" data-lvl="lt-l2 l3-l4">
+  <div class="pri-dot" style="background:#888780"></div>
+  <div class="topic-main">
+    <div class="topic-name">Comp Structure — Basic & Advanced (ESOP / RSU / Shares)</div>
+    <div class="meta-row">
+      <span class="pill pill-type-F">Functional</span>
+      <span class="pill pill-lvl-lt"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> LT / L1–L2</span>
+      <span class="pill pill-lvl-mid"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L3–L4</span>
+      <span class="pill pill-pri-low">Low</span>
+    </div>
+    <div class="req-info">Requested by <strong>SW_A</strong>. Partner with Finance / HR for SME-led session. ~30 participants across levels.</div>
+  </div>
+  <div class="pax">30+<span>participants</span></div>
+</div>
+
+<div class="topic-card" data-pri="low" data-lvl="l5-l7">
+  <div class="pri-dot" style="background:#888780"></div>
+  <div class="topic-main">
+    <div class="topic-name">Strategic Risk-Taking & Resilience / Leadership Well-Being</div>
+    <div class="meta-row">
+      <span class="pill pill-type-B">Behavioral</span>
+      <span class="pill pill-lvl-sr"><i class="ti ti-users" style="font-size:10px" aria-hidden="true"></i> L7–L8</span>
+      <span class="pill pill-pri-low">Low</span>
+    </div>
+    <div class="req-info">Requested by <strong>flexistaffing_Chn_A — Priyanka Jain</strong>. Senior leadership niche. Consider self-paced or external program.</div>
+  </div>
+  <div class="pax">~5<span>participants</span></div>
+</div>
+
+</div>
+</div>
+
+<script>
+function filterCards(filter, btn) {
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.topic-card').forEach(card => {
+    const pri = card.dataset.pri;
+    const lvl = card.dataset.lvl || '';
+    if (filter === 'all') { card.classList.remove('hidden'); return; }
+    const lvlFilters = ['lt-l2','l3-l4','l5-l7'];
+    if (lvlFilters.includes(filter)) {
+      card.classList.toggle('hidden', !lvl.includes(filter));
+    } else {
+      card.classList.toggle('hidden', pri !== filter);
+    }
+  });
+  document.querySelectorAll('.group-lbl').forEach(lbl => {
+    const next = lbl.nextElementSibling;
+    let hasVisible = false;
+    let el = lbl.nextElementSibling;
+    while (el && !el.classList.contains('group-lbl')) {
+      if (!el.classList.contains('hidden')) hasVisible = true;
+      el = el.nextElementSibling;
+    }
+    lbl.style.display = hasVisible ? '' : 'none';
+  });
+}
+</script>
