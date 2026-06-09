@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L&D Strategy — Lateral Training Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #F8FAFC; color: #1E293B; min-height: 100vh; }
 
+  .header { background: #1C2B4A; padding: 2.5rem 2rem 2rem; text-align: center; }
+  .header .tag { display: inline-block; background: #0D9488; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+  .header h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #9BB8D4; max-width: 540px; margin: 0 auto; line-height: 1.6; }
+
+  .meta-bar { background: #0D9488; padding: 10px 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .meta-bar span { font-size: 12px; color: #fff; opacity: .9; }
+  .meta-bar strong { font-weight: 600; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 960px; margin: 2.5rem auto; padding: 0 1.5rem; }
+
+  .card { background: #fff; border-radius: 12px; border: 0.5px solid #E2E8F0; overflow: hidden; text-decoration: none; color: inherit; display: block; transition: transform .15s, box-shadow .15s; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+
+  .card-accent { height: 5px; }
+  .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+  .card-icon { font-size: 26px; margin-bottom: 12px; }
+  .card-num { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #94A3B8; margin-bottom: 6px; }
+  .card h2 { font-size: 16px; font-weight: 700; color: #1C2B4A; margin-bottom: 8px; line-height: 1.3; }
+  .card p { font-size: 13px; color: #64748B; line-height: 1.6; margin-bottom: 16px; }
+  .card-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 7px 16px; border-radius: 6px; color: #fff; text-decoration: none; }
+  .card-btn svg { width: 14px; height: 14px; }
+
+  .footer { text-align: center; padding: 2rem; font-size: 12px; color: #94A3B8; border-top: 0.5px solid #E2E8F0; margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Careernet L&amp;D</div>
+  <h1>L&amp;D Strategy — Lateral Training Dashboard</h1>
+  <p>A consolidated intelligence hub covering training requests, delivery analysis, and pending topic tracker for the lateral hiring L&amp;D function.</p>
+</div>
+
+<div class="meta-bar">
+  <span><strong>FY 2025–26</strong> &nbsp;·&nbsp; Oct 2025 – May 2026</span>
+  <span><strong>125</strong> Training Requests</span>
+  <span><strong>42</strong> Sessions Delivered</span>
+  <span><strong>19</strong> Topics Pending</span>
+</div>
+
+<div class="cards">
+
+  <a href="ld_training_request_dashboard.html" class="card">
+    <div class="card-accent" style="background:#0D9488;"></div>
+    <div class="card-body">
+      <div class="card-num">Dashboard 01</div>
+      <h2>Training Request Overview</h2>
+      <p>Category-wise breakdown of all 125 training requests — demand signals, department trends, high-frequency topics, and standardization opportunities.</p>
+      <span class="card-btn" style="background:#0D9488;">
+        Open Dashboard
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="ld_request_vs_delivery_analysis.html" class="card">
+    <div class="card-accent" style="background:#1C2B4A;"></div>
+    <div class="card-body">
+      <div class="card-num">Dashboard 02</div>
+      <h2>Request vs. Delivery Analysis</h2>
+      <p>Intelligent mapping of business requests to actual delivered sessions — coverage status, gap analysis, trainer's choice sessions, and executive insights.</p>
+      <span class="card-btn" style="background:#1C2B4A;">
+        Open Dashboard
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="pending_trainings_by_level.html" class="card">
+    <div class="card-accent" style="background:#D97706;"></div>
+    <div class="card-body">
+      <div class="card-num">Dashboard 03</div>
+      <h2>Pending Trainings by Level</h2>
+      <p>19 pending training topics filtered by priority and audience level — who requested them, how many participants are waiting, and recommended next steps.</p>
+      <span class="card-btn" style="background:#D97706;">
+        Open Dashboard
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+</div>
+
+<div class="footer">
+  Careernet L&amp;D &nbsp;·&nbsp; Internal use only &nbsp;·&nbsp; FY 2025–26
+</div>
+
+</body>
+</html>
